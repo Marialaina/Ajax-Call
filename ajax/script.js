@@ -1,19 +1,24 @@
-const $title = $('#title');
-const $year = $('#year');
-const $rated = $('#rated');
+let movieData;
 
-const promise = $.ajax({
-    url:'http://www.omdbapi.com/?i=tt3896198&apikey=c1cd7da8'
-});
+$('form').on('submit', handleGetData);
 
-promise.then(
+const handleGetData = (event) => {
+    event.preventDefault();
+$.ajax({
+    url: 'http://www.omdbapi.com/?i=tt3896198&apikey=c1cd7da8'
+}).then(
   (data) => {
-    $title.text(data.Title);
-    $year.text(data.Year);
-    $rated.text(data.Rated);
-    console.log(data)
+      movieData = data;
+      render();
   },
   (error) => {
-   console.log('bad request: ', error);
-  }
+    console.log('bad request', error);
+   }
 );
+}
+
+const render = () => {
+    const $title = $('#title');
+    const $year = $('#year');
+    const $rated = $('#rated');
+}
